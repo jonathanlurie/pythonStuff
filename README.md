@@ -1,0 +1,1 @@
+Here is my Python playground, where I test new libraries and pieces of code. It's not in a sharing-friendly format because at the begining I dind't thing about sharing all that mess. Eventually, somme bits of code from here will evolve and have there own git project!

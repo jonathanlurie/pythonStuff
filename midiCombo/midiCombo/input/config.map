@@ -1,0 +1,5 @@
+1	P	plugin|keyboard|typeString|helloWorld
+2	P	plugin|keyboard|combo|cmd|a
+3	P	plugin|keyboard|combo|cmd|arrow_down
+4	P	plugin|keyboard|comboSequence|a|b|arrow_left
+
