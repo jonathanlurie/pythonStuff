@@ -16,6 +16,7 @@ import datetime
 import fnmatch
 import hashlib
 import urllib2
+import re
 
 
 
@@ -199,6 +200,15 @@ def downloadFile(distantURL, localURL=None):
         exit()
 
     return status
+
+
+# Natural sorting of files not using leading zeros.
+# list as input, list as output
+# Based on the answer of Mark Byers on StackOverflow.
+def natural_sort(l):
+    convert = lambda text: int(text) if text.isdigit() else text.lower()
+    alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ]
+    return sorted(l, key = alphanum_key)
 
 # main tester
 if __name__ == '__main__':
