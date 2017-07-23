@@ -210,6 +210,83 @@ def natural_sort(l):
     alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ]
     return sorted(l, key = alphanum_key)
 
+
+# find al the files with this extension in the rootFolder, recusively.
+# returns a list of all of them
+def findFiles(rootFolder, extension):
+    files = []
+
+    for root, dirnames, filenames in os.walk(rootFolder):
+        for filename in fnmatch.filter(filenames, '*.' + extension):
+            filename = os.path.join(root, filename)
+            files.append(filename)
+
+    return files
+
+def inputString(instructions):
+    """ask the user to type a string in terminal
+
+    """
+    instructionsComplete = "\n" + instructions + "\n> "
+    typedValue = raw_input(instructionsComplete)
+
+    return typedValue
+
+
+def inputInt(instructions, mini=None, maxi=None):
+    """ask the user to type an integer in terminal
+
+    Parameters:
+        instructions - sentence to inform the user
+        mini - minimal acceptable value (closed interval)
+        maxi - maximal acceptable value (closed interval)
+    """
+    typedValue = None
+
+    notDefined = True
+
+    # making a string from mini
+    if(mini is None):
+        miniStr = "-inf"
+    else:
+        miniStr = str(mini)
+
+    if(maxi is None):
+        maxiStr = "+inf"
+    else:
+        maxiStr = str(maxi)
+
+
+    instructionsComplete = ("\n" + instructions +
+        " ["+ miniStr + " ; " + maxiStr +"]\n> ")
+
+    while(notDefined):
+        try:
+            typedValue = int(raw_input(instructionsComplete))
+
+            minBoundTest = False
+            maxBoundTest = False
+
+            # checking the minimum bound
+            if(mini is not None and typedValue >= mini) or (mini is None):
+                minBoundTest = True
+
+            # checking the maximal bound
+            if(maxi is not None and typedValue <= maxi) or (maxi is None):
+                maxBoundTest = True
+
+            # if the exception didnt raise and the boundaries are ok,
+            # the value is ok
+            if(minBoundTest and maxBoundTest):
+                notDefined = False
+            else:
+                print "The number should be within " + " ["+ miniStr + " ; " + maxiStr +"]\n "
+
+        except ValueError:
+            print "This is not a number, try again."
+
+    return typedValue
+
 # main tester
 if __name__ == '__main__':
     # from and to are the same
@@ -221,4 +298,10 @@ if __name__ == '__main__':
 
     #loadTextFile("/Users/jonathanlurie/Desktop/help.txt")
 
-    downloadFile("https://github.com/jonathanlurie/BLANK_GOOEY/archive/master.zip", "/Users/jonathanlurie/Desktop/t3/f.zip")
+    #downloadFile("https://github.com/jonathanlurie/BLANK_GOOEY/archive/master.zip", "/Users/jonathanlurie/Desktop/t3/f.zip")
+
+    #leInt = inputInt("type something inty", mini=12, maxi=25)
+    #print leInt
+
+    laString = inputString("Type something stringy")
+    print laString
